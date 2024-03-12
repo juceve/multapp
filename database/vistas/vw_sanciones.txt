@@ -1,0 +1,5 @@
+CREATE VIEW vw_sanciones AS
+SELECT s.*, c.nro nrocaseta, c.pasillo, so.nombre socio, u.`name` usuario FROM sanciones s
+INNER JOIN casetas c ON c.id = s.caseta_id
+INNER JOIN socios so on so.id =s.socio_id
+INNER JOIN users u on u.id =s.user_id
