@@ -5,6 +5,7 @@ use App\Http\Controllers\CausaleController;
 use App\Http\Controllers\PagoController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\SancioneController;
+use App\Http\Controllers\SistemaController;
 use App\Http\Controllers\SocioController;
 use App\Http\Controllers\TipopagoController;
 use App\Http\Controllers\VinculoController;
@@ -37,6 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/sanciones', SancioneController::class)->names('sanciones');
     Route::resource('admin/tipopagos', TipopagoController::class)->names('tipopagos');
     Route::resource('admin/pagos', PagoController::class)->names('pagos');
+    Route::resource('admin/sistemas', SistemaController::class)->names('sistemas');
 
     Route::get('admin/sancionar', Sancionar::class)->name('sancionar');
     Route::get('admin/cobros/sanciones', CobroSanciones::class)->name('cobrosanciones');

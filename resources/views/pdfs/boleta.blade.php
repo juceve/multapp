@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
         * {
-            /* font-size: 11px; */
+            font-size: 12px;
             /* font-family: Consolas, monaco, monospace;
              */
             font-family: Arial, Helvetica, sans-serif;
@@ -42,23 +42,19 @@
 </head>
 
 <body>
-
-    <table class="table" style="border-color: white; vertical-align: top;margin-bottom: 2rem">
+    <table class="table2">
         <tr>
-            <td style="width: 100px;">
-                <img src="{{asset('images/logomercado.jpg')}}" style="width: 100px">
+            <td align="center"><img src="{{asset('images/escudoSCZ.png')}}" alt="" style="width: 43px;"></td>
+            <td align="center" style="font-size: 13px;"> <strong>ASOCIACIÓN 10 DE ABRIL</strong> <br>Mercado Mutualista
             </td>
-            <td>
-                <strong>ASOCIACIÓN 10 DE ABRIL</strong> <br>
-                Mercado Mutualista
-            </td>
+            <td align="center"><img src="{{asset('images/escudoBolivia.gif')}}" alt="" style="width: 40px;"></td>
         </tr>
     </table>
-    <p class="centrar"><strong><span style="font-size: 25px;">BOLETA DE SANCIÓN</span></strong><br><span
-            style="font-size: 18px">Nro.: 000000</span> <br> <span style="font-size: 18px">Fecha:
-            {{$sancione->fecha}}</span></p>
+    <p class="centrar"><strong><span style="font-size: 20px">BOLETA DE SANCIÓN</span></strong><br><span>Nro.:
+            {{str_pad($sancione->id, 6, "0", STR_PAD_LEFT)}}</span> <br> <span>Del:
+            {{fechaEs($sancione->fecha)}}</span></p>
     <hr>
-    <table style="width: 100%;">
+    <table cellspacing="0" cellpadding="0" style="width: 100%;">
         <tr>
 
             <td><strong>Socio: </strong></td>
@@ -72,22 +68,21 @@
         </tr>
     </table>
     <hr>
-
-    <table cellspacing="0" cellpadding="0" border="1" style="width: 100%; margin-top: 2rem">
+    <table cellspacing="0" cellpadding="0" border="1" style="width: 100%; margin-top: 2rem; border-spacing: 0">
         <thead>
             <tr style="background-color: #dad9d9">
-                <th style="padding: 8px">ID</th>
-                <th style="padding: 8px">CAUSA SANCIÓN</th>
-                <th style="padding: 8px">ESTADO PAGO</th>
-                <th style="padding: 8px">IMPORTE</th>
+                <th style="padding: 3px; font-size: 10px">ID</th>
+                <th style="padding: 3px; font-size: 10px">CAUSA SANCIÓN</th>
+                <th style="padding: 3px; font-size: 10px">ESTADO PAGO</th>
+                <th style="padding: 3px; font-size: 10px">IMPORTE</th>
             </tr>
         </thead>
         <tbody>
             <tr style="text-align: center">
-                <td style="padding: 1rem">{{$sancione->causale_id}}</td>
-                <td style="padding: 1rem">{{$sancione->causal}}</td>
-                <td style="padding: 1rem">{{$sancione->estadopago}}</td>
-                <td style="padding: 1rem">{{$sancione->importe}}</td>
+                <td style="padding: 3px; font-size: 10px">{{$sancione->causale_id}}</td>
+                <td style="padding: 3px; font-size: 10px">{{$sancione->causal}}</td>
+                <td style="padding: 3px; font-size: 10px">{{$sancione->estadopago}}</td>
+                <td style="padding: 3px; font-size: 10px">{{$sancione->importe}}</td>
 
             </tr>
         </tbody>
@@ -96,17 +91,25 @@
     @php
     $imagenes = explode('|',$sancione->url);
     @endphp
-    <div class="row">
-        <h4>CAPTURAS</h4>
-        @foreach ($imagenes as $item)
-        <div class="col">
-            <img src="{{asset('storage/'.$item)}}">
-        </div>
-        @endforeach
+    <br>
+    <span style=""><strong>CAPTURAS:</strong></span><br><br>
+    @foreach ($imagenes as $item)
 
-    </div>
-    </div>
+    <img src="{{asset('storage/'.$item)}}" style="max-height: 200px;">
 
+    @endforeach
+
+    <hr>
+    <table cellspacing="0" cellpadding="0" style="width: 100%;">
+        <tr>
+            <td align="center"><strong>*{{$sistema->leyendaboleta}}</strong></td>
+
+        </tr>
+    </table>
+
+    <hr>
+    <small><strong>Usuario:</strong>{{$sancione->usuario}}</small> <br>
+    <small><strong>Impresión:</strong>{{date('Y-m-d H:i:s')}}</small>
 
 </body>
 

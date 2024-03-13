@@ -93,7 +93,7 @@
 
     {{-- Extra Configured Plugins Scripts --}}
     @include('adminlte::plugins', ['type' => 'js'])
-
+    @include('vendor.local.mycode')
     {{-- Livewire Script --}}
     @if(config('adminlte.livewire'))
     @if(intval(app()->version()) >= 7)
@@ -102,11 +102,11 @@
     <livewire:scripts />
     @endif
     @endif
-
+    @include('vendor.local.despuesLivewire')
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
 
-    @include('vendor.local.mycode')
+
 
 </body>
 

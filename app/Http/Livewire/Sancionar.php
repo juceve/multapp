@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Caseta;
 use App\Models\Causale;
 use App\Models\Sancione;
+use App\Models\Sistema;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -29,18 +30,20 @@ class Sancionar extends Component
 
     protected $listeners = ['cargaImagenBase64'];
 
+
+
     public function cargaImagenBase64($imagebase64)
     {
         $imageData = explode(';base64,', $imagebase64);
         if (count($imageData) == 2) {
             $image = base64_decode($imageData[1]);
             $filename = uniqid() . date('Hms') . '.png';
-            if ($this->filename == "") {
-                $this->filename = $filename;
-            } else {
-                $this->filename .= '|' . $filename;
-            }
-
+            // if ($this->filename == "") {
+            //     $this->filename = $filename;
+            // } else {
+            //     $this->filename .= '|' . $filename;
+            // }
+            $this->filename = $filename;
             $path = storage_path('app/public/livewire-tmp/' . $filename);
 
             $img = Image::make($image)->save($path);
@@ -88,31 +91,43 @@ class Sancionar extends Component
                 "estadopago" => "IMPAGO",
             ]);
 
+            // if ($this->filename) {
+            //     $files = explode('|', $this->filename);
+            //     $url = "";
+            //     for ($i = 0; $i < count($files); $i++) {
+
+            //         if (Storage::disk('public')->exists("livewire-tmp/" . $files[$i])) {
+            //             Storage::disk('public')->move("livewire-tmp/" . $files[$i], "img-sanciones/" . $sancion->id . "_" . $i . ".png");
+
+            //             if ($url == "") {
+            //                 $url = "img-sanciones/" . $sancion->id . "_" . $i . ".png";
+            //             } else {
+            //                 $url .= '|' . "img-sanciones/" . $sancion->id . "_" . $i . ".png";
+            //             }
+            //         }
+            //     }
+            //     $sancion->url = $url;
+            //     $sancion->save();
+            // }
             if ($this->filename) {
-                $files = explode('|', $this->filename);
-                $url = "";
-                for ($i = 0; $i < count($files); $i++) {
 
-                    if (Storage::disk('public')->exists("livewire-tmp/" . $files[$i])) {
-                        Storage::disk('public')->move("livewire-tmp/" . $files[$i], "img-sanciones/" . $sancion->id . "_" . $i . ".png");
-
-                        if ($url == "") {
-                            $url = "img-sanciones/" . $sancion->id . "_" . $i . ".png";
-                        } else {
-                            $url .= '|' . "img-sanciones/" . $sancion->id . "_" . $i . ".png";
-                        }
-                    }
+                if (Storage::disk('public')->exists("livewire-tmp/" . $this->filename)) {
+                    Storage::disk('public')->move("livewire-tmp/" . $this->filename, "img-sanciones/" . $sancion->id . ".png");
                 }
-                $sancion->url = $url;
+
+                $sancion->url = "img-sanciones/" . $sancion->id . ".png";
                 $sancion->save();
             }
 
             DB::commit();
-            $boleta = $sancion->id . '|' . $sancion->fecha . '|' . $sancion->socio->nombre . '|' . $sancion->caseta->nro . '|' . $sancion->caseta->pasillo . '|' . $sancion->causale->id . '|' . $sancion->causal . '|' . $sancion->importe . '|' . $sancion->estadopago . '|' . $sancion->user->name . '|' . $sancion->url;
+            $sistema = Sistema::first();
+            $boleta = $sancion->id . '|' . $sancion->fecha . '|' . $sancion->socio->nombre . '|' . $sancion->caseta->nro . '|' . $sancion->caseta->pasillo . '|' . $sancion->causale->id . '|' . $sancion->causal . '|' . $sancion->importe . '|' . $sancion->estadopago . '|' . $sancion->user->name . '|' . $sancion->url . '|' . $sistema->leyendaboleta;
 
             $this->emit('imprimir', $boleta);
+            $url = asset('storage/' . $sancion->url);
+
             return redirect()->route('sancionar')
-                ->with('success', 'Sanción aplicada correctamente!');
+                ->with('successURL', $url);
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->emit('error', $th->getMessage());

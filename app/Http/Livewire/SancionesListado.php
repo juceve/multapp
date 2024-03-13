@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Caseta;
 use App\Models\Sancione;
+use App\Models\Sistema;
 use App\Models\Vw_sancione;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,7 @@ class SancionesListado extends Component
 
     public $pasillos, $casetas, $sanciones;
     public $pasillo = "", $nrocaseta = "", $fechaI = "", $fechaF = "", $socio = "";
-    public $filas = 1;
+    public $filas = 1, $browseMobile;
 
     public function mount()
     {
@@ -37,7 +38,7 @@ class SancionesListado extends Component
             $this->pasillos = DB::select("SELECT DISTINCT(pasillo) FROM casetas");
             $this->casetas = Caseta::where('pasillo', $this->pasillo)->get();
         }
-        $this->emit('dataTableL');
+
         $this->sanciones =  Vw_sancione::where([
             ['fecha', '>=', $this->fechaI],
             ['fecha', '<=', $this->fechaF],
@@ -45,12 +46,18 @@ class SancionesListado extends Component
             ['nrocaseta', 'LIKE', "%" . $this->nrocaseta . "%"],
             ['socio', 'LIKE', "%" . $this->socio . "%"]
         ])->get();
-
+        $this->emit('dataTableL');
         return view('livewire.sanciones-listado')
             ->with('i', 1);
     }
 
-    protected $listeners = ['cambiaEstado'];
+    protected $listeners = ['cambiaEstado', 'realizarCobro', 'updBrowse'];
+
+    public function updBrowse($status)
+    {
+        $this->browseMobile = $status;
+        // dd($this->browseMobile);
+    }
 
     public function cambiaEstado($id)
     {
@@ -58,11 +65,29 @@ class SancionesListado extends Component
         $sancione->estado = !$sancione->estado;
         $sancione->save();
         $this->filas++;
+        $this->emit('success', 'Sanción anulada con exito!');
+    }
+    public function realizarCobro($id)
+    {
+        $sancione = Sancione::find($id);
+        $sancione->estadopago = "PAGADO";
+        $sancione->save();
+        $this->filas++;
+        $this->generaBoleta($id);
+        $this->emit('success', 'Cobro realizado con exito!');
     }
 
     public function generaBoleta($id)
     {
-        $this->emit('renderizarpdf', $id);
+        $sancion = Sancione::find($id);
+        $sistema = Sistema::first();
+
+        $boleta = $sancion->id . '|' . $sancion->fecha . '|' . $sancion->socio->nombre . '|' . $sancion->caseta->nro . '|' . $sancion->caseta->pasillo . '|' . $sancion->causale->id . '|' . $sancion->causal . '|' . $sancion->importe . '|' . $sancion->estadopago . '|' . $sancion->user->name . '|' . $sancion->url . '|' . $sistema->leyendaboleta;
+        if ($this->browseMobile) {
+            $this->emit('imprimir', $boleta);
+        } else {
+            $this->emit('renderizarpdf', $id);
+        }
     }
 
 

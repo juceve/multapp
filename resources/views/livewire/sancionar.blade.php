@@ -73,7 +73,7 @@
 
                             <div class="custom-file">
                                 <input type="file" id="imageInput" capture="camera" class="custom-file-input"
-                                    accept="image/*" onchange="procesar()" multiple>
+                                    accept="image/*" onchange="procesar()">
                                 <label class="custom-file-label" for="inputGroupFile01">Seleccione una Imagen</label>
                             </div>
                         </div>
@@ -104,6 +104,7 @@
             <div id="preview" class="p-3 py-3" wire:ignore></div>
         </div>
     </div>
+
     @section('js')
 
     <script>
@@ -130,7 +131,7 @@
 
                 imgElement.onload = function (e) {
                     const canvas = document.createElement("canvas");
-                    const MAX_WIDTH = 400;
+                    const MAX_WIDTH = 600;
 
                     const scaleSize = MAX_WIDTH / e.target.width;
                     canvas.width = MAX_WIDTH;
@@ -176,4 +177,5 @@
         window.open("/impresiones/boleta.php?data=" + data, "_blank");            
     })
     </script>
+
     @endsection

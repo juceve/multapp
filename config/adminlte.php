@@ -336,17 +336,17 @@ return [
                 ],
             ],
         ],
-        [
-            'text'    => 'Cobros',
-            'icon'    => 'fas fa-fw fa-hand-holding-usd',
-            'submenu' => [
-                [
-                    'text' => 'Sanciones Impagas',
-                    'icon' => 'fas fa-fw fa-gavel',
-                    'url'  => 'admin/cobros/sanciones',
-                ],
-            ],
-        ],
+        // [
+        //     'text'    => 'Cobros',
+        //     'icon'    => 'fas fa-fw fa-hand-holding-usd',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Sanciones Impagas',
+        //             'icon' => 'fas fa-fw fa-gavel',
+        //             'url'  => 'admin/cobros/sanciones',
+        //         ],
+        //     ],
+        // ],
         [
             'text'    => 'Reportes',
             'icon'    => 'fas fa-fw fa-chart-pie',
@@ -430,6 +430,36 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdn.datatables.net/2.0.2/js/dataTables.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js',
                 ],
 
                 [

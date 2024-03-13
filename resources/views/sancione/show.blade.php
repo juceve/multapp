@@ -90,7 +90,7 @@ Detalles de la Sanción
                             @foreach ($urls as $item)
                             <div class="col-6 col-md-2 mb-3 text-center">
                                 <a href="#{{ $i }}">
-                                    <img src="{{ asset('storage/'.$item) }}" class="img-thumbnail" style="height:100px">
+                                    <img src="{{ asset('storage/'.$item) }}" class="img-thumbnail" style="height:150px">
                                 </a>
                             </div>
                             {{-- <img src="{{asset('storage/'.$item)}}" class="img-fluid px-3 py-3" id="{{uniqid()}}">

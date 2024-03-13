@@ -13,6 +13,9 @@
     <?php
     $data = $_GET['data'];
     $sancion = explode('|', $data);
+    $utilitario = new Utilitario();
+    date_default_timezone_set('America/La_Paz');
+
     ?>
 
     <div class="ticket">
@@ -20,22 +23,20 @@
             <!-- <img src="../images/multapp_ico2.jpg" alt="Logotipo" style="width: 20%;"> -->
             <table class="table2">
                 <tr>
-                    <td><img src="../images/logomercado.jpg" alt="" style="width: 75px;"></td>
-                    <td> <strong>ASOCIACIÓN <br> 10 DE ABRIL</strong> <br>Mercado Mutualista</td>
-                    <!-- <td><img src="../images/escudoBolivia.gif" alt="" style="width: 40px;"></td> -->
+                    <td align="center"><img src="../images/escudoSCZ.png" alt="" style="width: 43px;"></td>
+                    <td align="center" style="font-size: 13px;"> <strong>ASOCIACIÓN 10 DE ABRIL</strong> <br>Mercado Mutualista</td>
+                    <td align="center"><img src="../images/escudoBolivia.gif" alt="" style="width: 40px;"></td>
                 </tr>
             </table>
-            <p></p>
 
         </div>
         <hr>
-        <h3 class="centrado">
-            <strong>BOLETA DE SANCIÓN</strong>
-            <br>
+        <p style="font-size: 25px; padding: 0;" class="centrado"><strong>BOLETA DE SANCIÓN</strong></p>
+        <p class="centrado">
             Nro.: <?php echo str_pad($sancion[0], 6, "0", STR_PAD_LEFT); ?>
             <br>
-            <small> Fecha: <?php echo $sancion[1] ?></small>
-        </h3>
+            <small><?php echo $utilitario->fechaEs($sancion[1]); ?></small>
+        </p>
         <hr>
         <div class="container">
             <table class="table2">
@@ -55,7 +56,7 @@
 
         </div>
         <hr>
-        <table class="table1" style="width: 97%;">
+        <table class="table1" style="width: 98%;">
             <thead>
                 <tr style="background-color: #e2e2e2;">
                     <th class="table1">ID</th>
@@ -72,18 +73,22 @@
             </tbody>
         </table>
         <br>
-        <span><strong>Estado Sanción: <?php echo $sancion[8]; ?></strong></span> <br>
+        <span><strong>Estado Pago: <?php echo $sancion[8]; ?></strong></span> <br>
         <!-- <div style="text-align: center;">
             <p><small>Captura:</small></p>
-            <img src="../storage/<?php echo $sancion[10] ?>" alt="" style="max-height: 250px;">
+            <img src="../storage/" alt="" style="max-height: 250px;">
         </div> -->
-        <hr>
-        <small><i>Usuario: <?php echo $sancion[9]; ?></i></small>
+
     </div>
 
     <div>
-        <small><strong>*************************************** <br> Todo pago deberá realizarse en Oficinas de la Asociación en Horario de Atención al Cliente. <br>*************************************** </strong></small>
+        <small>*************************************** <br> <?php echo $sancion[11] ?> <br>***************************************</small> <br>
+
+        <small><i>Usuario: <?php echo $sancion[9]; ?></i></small> <br>
+        <small><i>Impresión: <?php echo date('Y-m-d H:i:s'); ?></i></small>
     </div>
+    <br>
+    <br>.
 
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
@@ -93,6 +98,65 @@
             }, 3000);
         });
     </script>
+
+
 </body>
 
 </html>
+
+<?php
+class Utilitario
+{
+    function fechaEs($fecha)
+    {
+        // Crea un objeto DateTime a partir de la cadena de fecha
+        $fecha_obj = DateTime::createFromFormat('Y-m-d', $fecha);
+
+        // Valida si la fecha es válida
+        if (!$fecha_obj) {
+            return 'Fecha inválida';
+        }
+
+        // Arreglo con los nombres de los días de la semana en español
+        $nombres_dias = array(
+            'Domingo',
+            'Lunes',
+            'Martes',
+            'Miércoles',
+            'Jueves',
+            'Viernes',
+            'Sábado'
+        );
+
+        // Obtiene el nombre del día de la semana en español
+        $nombre_dia = $nombres_dias[$fecha_obj->format('w')];
+
+        // Obtiene el día, mes y año de la fecha
+        $dia = $fecha_obj->format('j');
+        $mes = $fecha_obj->format('n');
+        $anio = $fecha_obj->format('Y');
+
+        // Arreglo con los nombres de los meses en español
+        $nombres_meses = array(
+            1 => 'Enero',
+            2 => 'Febrero',
+            3 => 'Marzo',
+            4 => 'Abril',
+            5 => 'Mayo',
+            6 => 'Junio',
+            7 => 'Julio',
+            8 => 'Agosto',
+            9 => 'Septiembre',
+            10 => 'Octubre',
+            11 => 'Noviembre',
+            12 => 'Diciembre'
+        );
+
+        // Construye la fecha en formato literal
+        $fecha_literal = $nombre_dia . ', ' . $dia . ' de ' . $nombres_meses[$mes] . ' de ' . $anio;
+
+        return $fecha_literal;
+    }
+}
+
+?>
