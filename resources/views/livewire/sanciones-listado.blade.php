@@ -107,17 +107,23 @@
                                 <a class="dropdown-item" href="{{route('sanciones.show',$item->id)}}"><i
                                         class="fas fa-eye"></i> Ver Detalle</a>
 
+                                @can('admin.sanciones.boleta')
                                 <button class="dropdown-item" wire:click='generaBoleta({{$item->id}})'><i
                                         class="fas fa-ticket-alt"></i> Generar
                                     Boleta</button>
+                                @endcan
                                 <div class="dropdown-divider"></div>
+                                @can('admin.sanciones.cobros')
                                 <button class="dropdown-item {{$impago}}" onclick="cobrar({{$item->id}})"><i
                                         class="fas fa-cash-register"></i> Realizar
                                     cobro</button>
+                                @endcan
                                 <div class="dropdown-divider"></div>
+                                @can('admin.sanciones.destroy')
                                 <button class="dropdown-item {{$item->estado?'':'disabled'}}"
                                     onclick="anular({{$item->id}})"><i class="fas fa-ban"></i> Anular
                                     Sanción</button>
+                                @endcan
                             </div>
                         </div>
                     </td>

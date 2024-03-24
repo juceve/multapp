@@ -11,11 +11,14 @@ use Illuminate\Http\Request;
  */
 class SistemaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('can:admin.sistemas.index')->only('index');
+        $this->middleware('can:admin.sistemas.create')->only('create', 'store');
+        $this->middleware('can:admin.sistemas.edit')->only('edit', 'update');
+        $this->middleware('can:admin.sistemas.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $sistemas = Sistema::all();

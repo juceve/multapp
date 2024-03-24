@@ -11,11 +11,14 @@ use Illuminate\Http\Request;
  */
 class TipopagoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('can:admin.tipopagos.index')->only('index');
+        $this->middleware('can:admin.tipopagos.create')->only('create', 'store');
+        $this->middleware('can:admin.tipopagos.edit')->only('edit', 'update');
+        $this->middleware('can:admin.tipopagos.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $tipopagos = Tipopago::all();

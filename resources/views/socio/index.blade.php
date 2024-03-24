@@ -17,10 +17,12 @@ Socios
                         </span>
 
                         <div class="float-right">
+                            @can('admin.socios.create')
                             <a href="{{ route('socios.create') }}" class="btn btn-info btn-sm float-right"
                                 data-placement="left">
                                 <i class="fas fa-plus"></i> Nuevo
                             </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -63,13 +65,17 @@ Socios
                                             <a class="btn btn-sm btn-primary "
                                                 href="{{ route('socios.show',$socio->id) }}" title="Ver Info"><i
                                                     class="fa fa-fw fa-eye"></i></a>
+                                            @can('admin.socios.edit')
                                             <a class="btn btn-sm btn-success"
                                                 href="{{ route('socios.edit',$socio->id) }}" title="Editar"><i
                                                     class="fa fa-fw fa-edit"></i> </a>
+                                            @endcan
                                             @csrf
                                             @method('DELETE')
+                                            @can('admin.socios.destroy')
                                             <button type="submit" class="btn btn-danger btn-sm"><i
                                                     class="fa fa-fw fa-trash" title="Eliminar"></i> </button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

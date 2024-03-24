@@ -17,6 +17,12 @@ Listado de Sanciones
                         </span>
 
                         <div class="float-right">
+                            @can('admin.sanciones.create')
+                            <a href="{{ route('sancionar') }}" class="btn btn-info btn-sm float-right"
+                                data-placement="left">
+                                <i class="fas fa-plus"></i> Nuevo
+                            </a>
+                            @endcan
                         </div>
                     </div>
                 </div>

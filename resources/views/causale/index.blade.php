@@ -17,10 +17,12 @@ Listado de Causales |
                         </span>
 
                         <div class="float-right">
+                            @can('admin.casusales.create')
                             <a href="{{ route('causales.create') }}" class="btn btn-info btn-sm float-right"
                                 data-placement="left">
                                 <i class="fas fa-plus"></i> Nuevo
                             </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -53,13 +55,17 @@ Listado de Causales |
                                             <a class="btn btn-sm btn-primary "
                                                 href="{{ route('causales.show',$causale->id) }}" title="Ver Info"><i
                                                     class="fa fa-fw fa-eye"></i></a>
+                                            @can('admin.causales.edit')
                                             <a class="btn btn-sm btn-success"
                                                 href="{{ route('causales.edit',$causale->id) }}"><i
                                                     class="fa fa-fw fa-edit" title="Editar"></i></a>
+                                            @endcan
                                             @csrf
                                             @method('DELETE')
+                                            @can('admin.causales.destroy')
                                             <button type="submit" class="btn btn-danger btn-sm" title="Eliminar"><i
                                                     class="fa fa-fw fa-trash"></i></button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

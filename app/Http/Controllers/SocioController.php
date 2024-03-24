@@ -11,11 +11,14 @@ use Illuminate\Http\Request;
  */
 class SocioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('can:admin.socios.index')->only('index');
+        $this->middleware('can:admin.socios.create')->only('create', 'store');
+        $this->middleware('can:admin.socios.edit')->only('edit', 'update');
+        $this->middleware('can:admin.socios.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $socios = Socio::all();

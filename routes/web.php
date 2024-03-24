@@ -4,10 +4,12 @@ use App\Http\Controllers\CasetaController;
 use App\Http\Controllers\CausaleController;
 use App\Http\Controllers\PagoController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SancioneController;
 use App\Http\Controllers\SistemaController;
 use App\Http\Controllers\SocioController;
 use App\Http\Controllers\TipopagoController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VinculoController;
 use App\Http\Livewire\CobroSanciones;
 use App\Http\Livewire\Rptsanciones;
@@ -32,6 +34,13 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/users/profile/{user}', [UserController::class, 'profile'])->name('users.profile');
+    Route::get('users/asignaRol/{user}', [UserController::class, 'asinaRol'])->name('users.asignaRol');
+    Route::put('users/updateRol/{user}', [UserController::class, 'updateRol'])->name('users.updateRol');
+    Route::get('users/cambiaestado/{user}', [UserController::class, 'cambiaestado'])->name('users.cambiaestado');
+
+    Route::resource('admin/usuarios', UserController::class)->names('users');
+    Route::resource('admin/roles', RoleController::class)->names('admin.roles');
     Route::resource('admin/socios', SocioController::class)->names('socios');
     Route::resource('admin/casetas', CasetaController::class)->names('casetas');
     Route::resource('admin/vinculos', VinculoController::class)->names('vinculos');

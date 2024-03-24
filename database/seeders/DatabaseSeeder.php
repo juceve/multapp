@@ -12,12 +12,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(RoleSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::create([
-            'name' => 'Julio Veliz',
-            'email' => 'julio@gmail.com',
-            'password' => bcrypt('12345678'),
+            'name' => 'David Saca',
+            'email' => 'david@gmail.com',
+            'password' => bcrypt('Multas2024'),
+        ])->assignRole('Administrador');
+
+        \App\Models\Sistema::create([
+            'leyendaboleta' => 'Todos los pagos deberán realizarse en oficinas de la Asociación en horarios de Atencion al Cliente.',
         ]);
     }
 }

@@ -17,10 +17,12 @@ Listado de Casetas |
                         </span>
 
                         <div class="float-right">
+                            @can('admin.casetas.create')
                             <a href="{{ route('casetas.create') }}" class="btn btn-info btn-sm float-right"
                                 data-placement="left">
                                 <i class="fas fa-plus"></i> Nuevo
                             </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -61,13 +63,17 @@ Listado de Casetas |
                                             <a class="btn btn-sm btn-primary "
                                                 href="{{ route('casetas.show',$caseta->id) }}" title="Ver Info"><i
                                                     class="fa fa-fw fa-eye"></i> </a>
+                                            @can('admin.casetas.edit')
                                             <a class="btn btn-sm btn-success"
                                                 href="{{ route('casetas.edit',$caseta->id) }}" title="Editar"><i
                                                     class="fa fa-fw fa-edit"></i></a>
+                                            @endcan
                                             @csrf
                                             @method('DELETE')
+                                            @can('admin.casetas.destroy')
                                             <button type="submit" class="btn btn-danger btn-sm" title="Eliminar"><i
                                                     class="fa fa-fw fa-trash"></i></button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

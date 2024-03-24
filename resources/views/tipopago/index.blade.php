@@ -17,10 +17,12 @@ Listado de Tipos de Pago
                         </span>
 
                         <div class="float-right">
+                            @can('admin.tipopagos.create')
                             <a href="{{ route('tipopagos.create') }}" class="btn btn-info btn-sm float-right"
                                 data-placement="left">
                                 <i class="fas fa-plus"></i> Nuevo
                             </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -52,13 +54,17 @@ Listado de Tipos de Pago
                                             <a class="btn btn-sm btn-primary "
                                                 href="{{ route('tipopagos.show',$tipopago->id) }}" title="Ver Info"><i
                                                     class="fa fa-fw fa-eye"></i> </a>
+                                            @can('admin.tipopagos.edit')
                                             <a class="btn btn-sm btn-success"
                                                 href="{{ route('tipopagos.edit',$tipopago->id) }}" title="Editar"><i
                                                     class="fa fa-fw fa-edit"></i> </a>
+                                            @endcan
                                             @csrf
                                             @method('DELETE')
+                                            @can('admin.tipopagos.destroy')
                                             <button type="submit" class="btn btn-danger btn-sm" title="Eliminar"><i
                                                     class="fa fa-fw fa-trash"></i> </button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

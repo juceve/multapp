@@ -12,11 +12,14 @@ use Illuminate\Http\Request;
  */
 class CasetaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('can:admin.casetas.index')->only('index');
+        $this->middleware('can:admin.casetas.create')->only('create', 'store');
+        $this->middleware('can:admin.casetas.edit')->only('edit', 'update');
+        $this->middleware('can:admin.casetas.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $casetas = Caseta::all();

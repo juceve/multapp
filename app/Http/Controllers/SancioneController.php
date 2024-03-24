@@ -11,11 +11,14 @@ use Illuminate\Http\Request;
  */
 class SancioneController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('can:admin.sanciones.index')->only('index');
+        $this->middleware('can:admin.sanciones.create')->only('create', 'store');
+        $this->middleware('can:admin.sanciones.edit')->only('edit', 'update');
+        $this->middleware('can:admin.sanciones.destroy')->only('destroy');
+    }
+
     public function index()
     {
 
