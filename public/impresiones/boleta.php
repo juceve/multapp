@@ -74,10 +74,7 @@
         </table>
         <br>
         <span><strong>Estado Pago: <?php echo $sancion[8]; ?></strong></span> <br>
-        <!-- <div style="text-align: center;">
-            <p><small>Captura:</small></p>
-            <img src="../storage/" alt="" style="max-height: 250px;">
-        </div> -->
+
 
     </div>
 

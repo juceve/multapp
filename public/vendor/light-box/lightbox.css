@@ -14,7 +14,7 @@
 }
 
 .light-box img {
-    /* max-width: 90vw; */
+    max-width: 90vw;
     max-height: 100vh;
 
 }

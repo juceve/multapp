@@ -10,6 +10,7 @@ use App\Http\Controllers\SocioController;
 use App\Http\Controllers\TipopagoController;
 use App\Http\Controllers\VinculoController;
 use App\Http\Livewire\CobroSanciones;
+use App\Http\Livewire\Rptsanciones;
 use App\Http\Livewire\Sancionar;
 use App\Http\Livewire\SancionesListado;
 use Illuminate\Support\Facades\Auth;
@@ -43,4 +44,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('admin/sancionar', Sancionar::class)->name('sancionar');
     Route::get('admin/cobros/sanciones', CobroSanciones::class)->name('cobrosanciones');
     Route::get('pdf/boleta/{data}', [PdfController::class, 'boleta'])->name('pdf.boleta');
+
+    Route::get('admin/reportes/sanciones', Rptsanciones::class)->name('reportes.sanciones');
 });

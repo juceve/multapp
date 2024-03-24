@@ -1,4 +1,5 @@
 <div>
+
     <div class="row">
         <div class="col-12 col-md-3">
             <div class="input-group mb-3">
@@ -36,7 +37,11 @@
             </select>
         </div>
     </div>
-
+    <div wire:loading class="text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <div class="table-responsive mt-3" wire:ignore.self>
         <table class="table table-bordered table-striped table-hover dataTableL">
             <thead>
@@ -84,7 +89,7 @@
                         @if ($item->estado)
                         <span class="badge badge-pill badge-info">Activo</span>
                         @else
-                        <span class="badge badge-pill badge-secondary">Inactivo</span>
+                        <span class="badge badge-pill badge-secondary">Anulado</span>
                         @php
                         $impago = "disabled";
                         @endphp
@@ -111,23 +116,11 @@
                                     cobro</button>
                                 <div class="dropdown-divider"></div>
                                 <button class="dropdown-item {{$item->estado?'':'disabled'}}"
-                                    onclick="anular({{$item->id}})"><i class="fas fa-ban"></i> Anular Sanción</button>
+                                    onclick="anular({{$item->id}})"><i class="fas fa-ban"></i> Anular
+                                    Sanción</button>
                             </div>
                         </div>
                     </td>
-                    {{-- <td class="text-right">
-                        <button class="btn btn-sm btn-primary " {{$impago}} title="Realizar cobro"
-                            onclick="cobrar({{$item->id}})"><i class="fas fa-cash-register"></i></button>
-
-                        <a href="{{route('sanciones.show',$item->id)}}" class="btn btn-sm btn-info"
-                            title="Ver Detalle"><i class="fas fa-eye"></i></a>
-
-                        <button class="btn btn-sm btn-success" title="Generar Boleta"
-                            wire:click='generaBoleta({{$item->id}})'><i class="fas fa-ticket-alt"></i></button>
-
-                        <button class="btn btn-sm btn-danger" {{$item->estado?'':'disabled'}} title="Anular Sanción"
-                            onclick="anular({{$item->id}})"><i class="fas fa-ban"></i></button>
-                    </td> --}}
                 </tr>
                 @empty
 
@@ -139,6 +132,7 @@
         </table>
         @endif
     </div>
+
 </div>
 @section('js')
 <script>
@@ -154,7 +148,43 @@
 </script>
 <script>
     Livewire.on('imprimir', data => {
-    window.open("/impresiones/boleta.php?data=" + data, "_blank");            
+    window.open("/impresiones/boletafoto.php?data=" + data, "_blank");            
 })
+</script>
+
+<script>
+    function anular(id){
+        Swal.fire({
+  title: "Anular Registro",
+  text: "Está seguro de realizar esta operación?",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Si, continuar",
+  cancelButtonText: "No, cancelar",
+}).then((result) => {
+  if (result.isConfirmed) {
+   Livewire.emit('cambiaEstado',id);
+  }
+});
+    }
+
+    function cobrar(id){
+        Swal.fire({
+  title: "Realizar Cobro Sanción",
+  text: "Está seguro de realizar esta operación?",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Si, continuar",
+  cancelButtonText: "No, cancelar",
+}).then((result) => {
+  if (result.isConfirmed) {
+   Livewire.emit('realizarCobro',id);
+  }
+});
+    }
 </script>
 @endsection

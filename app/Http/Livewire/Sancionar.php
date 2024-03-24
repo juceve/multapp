@@ -28,7 +28,7 @@ class Sancionar extends Component
         $this->importe = $this->causal->importe;
     }
 
-    protected $listeners = ['cargaImagenBase64'];
+    protected $listeners = ['cargaImagenBase64', 'generaBoleta'];
 
 
 
@@ -127,10 +127,20 @@ class Sancionar extends Component
             $url = asset('storage/' . $sancion->url);
 
             return redirect()->route('sancionar')
-                ->with('successURL', $url);
+                ->with('successBoleta2', $sancion->id);
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->emit('error', $th->getMessage());
         }
+    }
+
+    public function generaBoleta($id)
+    {
+        $sancion = Sancione::find($id);
+        $sistema = Sistema::first();
+
+        $boleta = $sancion->id . '|' . $sancion->fecha . '|' . $sancion->socio->nombre . '|' . $sancion->caseta->nro . '|' . $sancion->caseta->pasillo . '|' . $sancion->causale->id . '|' . $sancion->causal . '|' . $sancion->importe . '|' . $sancion->estadopago . '|' . $sancion->user->name . '|' . $sancion->url . '|' . $sistema->leyendaboleta;
+
+        $this->emit('imprimirboletafoto', $boleta);
     }
 }

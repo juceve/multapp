@@ -81,18 +81,24 @@
                     </div>
                 </div>
 
-                @if (!is_null($caseta) &&!is_null($causal))
-                <div class="col-12 col-md-6 {{$vCaseta}} mb-3">
-                    <button class="btn btn-warning btn-block col-12" wire:click='sancionar'>SANCIONAR
+                @if (!is_null($caseta) && !is_null($causal))
+                <div class="col-12 col-md-6 {{$vCaseta}} mb-3" wire:loading.remove>
+                    <button class="btn btn-warning btn-block col-12" wire:click='sancionar'
+                        wire:loading.attr="disabled">SANCIONAR
                         <i class="fas fa-gavel"></i></button>
                 </div>
-                @endif
-
-                <div wire:loading wire:target="photo">
+                <div class="col-12 col-md-6 mb-3" wire:loading wire.target='sancionar'>
                     <div class="spinner-border text-info" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div>
+                @endif
+
+                {{-- <div wire:loading wire:target="photo">
+                    <div class="spinner-border text-info" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div> --}}
 
             </div>
             <div class="d-none" id="divOutput" wire:ignore>
@@ -131,7 +137,7 @@
 
                 imgElement.onload = function (e) {
                     const canvas = document.createElement("canvas");
-                    const MAX_WIDTH = 600;
+                    const MAX_WIDTH = 400;
 
                     const scaleSize = MAX_WIDTH / e.target.width;
                     canvas.width = MAX_WIDTH;
@@ -176,6 +182,30 @@
         Livewire.on('imprimir', data => {
         window.open("/impresiones/boleta.php?data=" + data, "_blank");            
     })
+
+         Livewire.on('imprimirboletafoto', data => {
+        window.open("/impresiones/boletafoto.php?data=" + data, "_blank");            
+    })
     </script>
 
+
+    @if ($message = Session::get('successBoleta2'))
+    <script>
+        var value = "{{$message}}";
+    Swal.fire({
+    title: "Sanción exitosa!",
+    text: "Desea generar la boleta con su captura correspondiente?",
+    icon: "success",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, generar",
+    cancelButtonText: "No, cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Livewire.emit('generaBoleta',value);
+        }
+    });
+    </script>
+    @endif
     @endsection

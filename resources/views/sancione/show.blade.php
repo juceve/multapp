@@ -74,7 +74,7 @@ Detalles de la Sanción
                                 @if ($sancione->estado)
                                 <span class="badge badge-pill badge-info">Activo</span>
                                 @else
-                                <span class="badge badge-pill badge-secondary">Inactivo</span>
+                                <span class="badge badge-pill badge-secondary">Anulado</span>
                                 @endif
                             </div>
                         </div>

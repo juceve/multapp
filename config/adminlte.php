@@ -307,9 +307,9 @@ return [
         //     'text' => 'search',
         // ],
         [
-            'text' => 'Dashboard',
+            'text' => 'RESUMEN DEL DIA',
             'url'  => '/home',
-            'icon'  => 'fas fa-fw fa-tachometer-alt',
+            'icon'  => 'fas fa-fw fa-thumbtack',
         ],
         // [
         //     'text'        => 'pages',
@@ -352,9 +352,9 @@ return [
             'icon'    => 'fas fa-fw fa-chart-pie',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'icon_color' => 'yellow',
-                    'url'  => '#',
+                    'text' => 'Sanciones',
+                    'icon'    => 'fas fa-fw fa-file-alt',
+                    'url'  => 'admin/reportes/sanciones',
                 ],
             ],
         ],
@@ -428,49 +428,51 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/2.0.2/js/dataTables.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/dataTables.js',
+                ],
+
+
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/buttons.dataTables.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/jszip.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/pdfmake.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/vfs_fonts.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/dataTables.buttons.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/buttons.html5.min.js',
                 ],
 
                 [
                     'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/2.0.2/css/dataTables.dataTables.css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/dataTables.dataTables.css',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/buttons/3.0.1/css/buttons.dataTables.css',
+                    'asset' => true,
+                    'location' => 'vendor/datatables/buttons.dataTables.css',
                 ],
             ],
         ],
