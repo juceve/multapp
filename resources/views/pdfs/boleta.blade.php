@@ -35,6 +35,16 @@
             padding: 20px;
             text-align: center;
         }
+
+        .contenedor-imagen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            /* O el alto deseado */
+            width: 100%;
+            /* Ajusta este valor según necesites */
+        }
     </style>
 
 
@@ -93,12 +103,11 @@
     @endphp
     <br>
     <span style=""><strong>CAPTURAS:</strong></span><br><br>
-    @foreach ($imagenes as $item)
-
-    <img src="{{asset('storage/'.$item)}}" style="max-height: 200px;">
-
-    @endforeach
-
+    <div class="contenedor-imagen" style="margin-left: 20rem">
+        @foreach ($imagenes as $item)
+        <img src="{{asset('storage/'.$item)}}" style="max-height: 200px; align-self: center">
+        @endforeach
+    </div>
     <hr>
     <table cellspacing="0" cellpadding="0" style="width: 100%;">
         <tr>

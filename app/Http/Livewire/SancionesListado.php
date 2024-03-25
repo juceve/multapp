@@ -8,6 +8,7 @@ use App\Models\Sistema;
 use App\Models\Vw_sancione;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -47,6 +48,11 @@ class SancionesListado extends Component
             ['socio', 'LIKE', "%" . $this->socio . "%"]
         ])->get();
         $this->emit('dataTableL');
+
+        $paramentros = array($this->pasillo, $this->nrocaseta, $this->fechaI, $this->fechaF, $this->socio);
+        Session::put('sancionesAll', $this->sanciones);
+        Session::put('parametros', $paramentros);
+
         return view('livewire.sanciones-listado')
             ->with('i', 1);
     }
@@ -86,8 +92,14 @@ class SancionesListado extends Component
         if ($this->browseMobile) {
             $this->emit('imprimir', $boleta);
         } else {
-            $this->emit('renderizarpdf', $id);
         }
+    }
+
+    public function exportarImagenes()
+    {
+
+
+        $this->emit('renderizarImg', '0');
     }
 
 

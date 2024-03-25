@@ -53,6 +53,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('admin/sancionar', Sancionar::class)->name('sancionar');
     Route::get('admin/cobros/sanciones', CobroSanciones::class)->name('cobrosanciones');
     Route::get('pdf/boleta/{data}', [PdfController::class, 'boleta'])->name('pdf.boleta');
+    Route::get('pdf/boletas/{data}', [PdfController::class, 'boletas'])->name('pdf.boletas');
 
     Route::get('admin/reportes/sanciones', Rptsanciones::class)->name('reportes.sanciones');
 });

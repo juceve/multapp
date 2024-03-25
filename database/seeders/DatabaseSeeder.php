@@ -16,6 +16,12 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::create([
+            'name' => 'Julio Veliz',
+            'email' => 'julio@gmail.com',
+            'password' => bcrypt('Multas2024'),
+        ])->assignRole('Administrador');
+
+        \App\Models\User::create([
             'name' => 'David Saca',
             'email' => 'david@gmail.com',
             'password' => bcrypt('Multas2024'),

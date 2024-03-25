@@ -36,6 +36,10 @@
                 @endforeach
             </select>
         </div>
+        <div class="col-12 text-right">
+            <button class="btn btn-dark" wire:click='exportarImagenes'><i class="fas fa-file-pdf"></i> Exportar con
+                Imagenes</button>
+        </div>
     </div>
     <div wire:loading class="text-center">
         <div class="spinner-border text-primary" role="status">
@@ -107,13 +111,13 @@
                                 <a class="dropdown-item" href="{{route('sanciones.show',$item->id)}}"><i
                                         class="fas fa-eye"></i> Ver Detalle</a>
 
-                                @can('admin.sanciones.boleta')
+                                @can('admin.sanciones.boletas')
                                 <button class="dropdown-item" wire:click='generaBoleta({{$item->id}})'><i
                                         class="fas fa-ticket-alt"></i> Generar
                                     Boleta</button>
                                 @endcan
                                 <div class="dropdown-divider"></div>
-                                @can('admin.sanciones.cobros')
+                                @can('admin.sanciones.cobrar')
                                 <button class="dropdown-item {{$impago}}" onclick="cobrar({{$item->id}})"><i
                                         class="fas fa-cash-register"></i> Realizar
                                     cobro</button>
@@ -149,6 +153,11 @@
 <script>
     Livewire.on('renderizarpdf', data => {
         var win = window.open("../pdf/boleta/" + data, '_blank');
+        win.focus();
+    });
+
+    Livewire.on('renderizarImg', msg => {
+        var win = window.open("../pdf/boletas/0", '_blank');
         win.focus();
     });
 </script>
