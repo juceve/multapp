@@ -88,18 +88,18 @@
     $('.dataTableL1').DataTable({
         destroy:true,
         searching: false,
-        
+
         layout: {
             topEnd: {
                 buttons: [
             {
                 extend: 'excelHtml5',
-                text: 'Exportar a Excel',               
+                text: 'Exportar a Excel',
             },
             {
                 extend: 'pdfHtml5',
                 text: 'Exportar a PDF',
-                
+
                 customize: function(doc) {
                     // Configura el tamaño de la página a Carta y la orientación
                     doc.pageOrientation = 'landscape'; // o 'landscape' si prefieres orientación horizontal
@@ -136,31 +136,31 @@
                     }
                 }
             },
-            
+
         ]
             }
         },
         language: {
-        url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
+        url: '{{asset("vendor/datatables/es-MX.json")}}',
         },
         });
-    
+
     Livewire.on('dataTableL1',()=>{
         $('.dataTableL1').DataTable({
         destroy:true,
         searching: false,
-        
+
         layout: {
             topEnd: {
                 buttons: [
             {
                 extend: 'excelHtml5',
-                text: 'Exportar a Excel',               
+                text: 'Exportar a Excel',
             },
             {
                 extend: 'pdfHtml5',
                 text: 'Exportar a PDF',
-                
+
                 customize: function(doc) {
                     // Configura el tamaño de la página a Carta y la orientación
                     doc.pageOrientation = 'landscape'; // o 'landscape' si prefieres orientación horizontal
@@ -197,12 +197,12 @@
                     }
                 }
             },
-            
+
         ]
             }
         },
         language: {
-        url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
+        url:  '{{asset("vendor/datatables/es-MX.json")}}',
         },
         });
     });

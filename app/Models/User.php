@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class User extends Authenticatable
 {
@@ -56,10 +57,5 @@ class User extends Authenticatable
         $user = Auth::user();
 
         return $user->roles[0]->name;
-    }
-
-    public function adminlte_image()
-    {
-        return 'https://static.vecteezy.com/system/resources/previews/009/784/096/original/avatar-with-gear-flat-design-icon-of-manager-vector.jpg';
     }
 }

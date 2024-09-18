@@ -28,11 +28,11 @@ class PdfController extends Controller
         $sanciones = Session::get('sancionesAll');
         $parametros = Session::get('parametros');
 
-        // $pdf = Pdf::loadView('pdfs.boletas', compact('sanciones', 'parametros'))
-        //     ->setPaper('letter', 'portrait');
+        $pdf = Pdf::loadView('pdfs.boletas', compact('sanciones', 'parametros'))
+            ->setPaper('letter', 'portrait');
 
-        // return $pdf->stream();
+        return $pdf->stream();
 
-        return view('pdfs.boletas', compact('sanciones', 'parametros'));
+        // return view('pdfs.boletas', compact('sanciones', 'parametros'));
     }
 }

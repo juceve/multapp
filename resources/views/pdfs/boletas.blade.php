@@ -81,7 +81,7 @@
                     </tr>
                     <tr>
                         <td><strong>FECHA:</strong></td>
-                        <td>{{$item->fecha}}</td>
+                        <td>{{fechaEs($item->fecha)}}</td>
                     </tr>
                     <tr>
                         <td><strong>SOCIO:</strong></td>
@@ -112,7 +112,18 @@
                 </table>
             </td>
             <td align="right">
-                <img src="{{asset('storage/'.$item->url)}}" style="max-height: 200px; align-self: center">
+                @php
+                $ruta = public_path()."/storage/".$item->url;
+                @endphp
+                @if (file_exists($ruta))
+                <img src="{{asset('storage/'.$item->url)}}" style="max-height: 200px;">
+
+                @else
+                <img src="{{asset('images/no-image.png')}}" style="max-height: 150px;">
+
+                @endif
+
+
             </td>
         </tr>
     </table>

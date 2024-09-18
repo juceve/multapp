@@ -1,0 +1,33 @@
+.tabla-contenedor {
+    max-height: 57vh;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    width: calc(100% + 17px);
+}
+
+.tabla-contenedor::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.tabla-contenedor::-webkit-scrollbar:vertical {
+    width: 10px;
+}
+
+.tabla-contenedor::-webkit-scrollbar-button:increment,
+.tabla-contenedor::-webkit-scrollbar-button {
+    display: none;
+}
+
+.tabla-contenedor::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.tabla-contenedor::-webkit-scrollbar-thumb {
+    background-color: #5756565d;
+    border-radius: 20px;
+    border: .5px #f1f2f3;
+}
+
+.tabla-contenedor::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
